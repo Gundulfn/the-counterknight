@@ -16,17 +16,17 @@ public class Arrow : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
-    }
-
-    void Update()
-    {
-        rb.velocity = transform.up * arrowForwardSpeed * Time.deltaTime;
 
         Vector3 targetVector = target.position - transform.position;
 
         float rotatingIndex = Vector3.Cross(targetVector, transform.up).z;
 
-        rb.angularVelocity = -1 * rotatingIndex * arrowTurnSpeed * Time.deltaTime;                                                 
+        transform.Rotate(0, 0, 20*rotatingIndex);
+    }
+
+    void Update()
+    {
+        rb.velocity = -transform.up * arrowForwardSpeed * Time.deltaTime;                                                
     }
 
     void OnTriggerEnter2D(Collider2D col)
