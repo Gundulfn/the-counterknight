@@ -25,6 +25,15 @@ public class Enemy : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = true;
             boxCol.offset = new Vector2( -boxCol.offset.x, boxCol.offset.y);
         }
+
+        //Just fun
+        int x = Random.Range(0, 3);
+
+        if(x == 0)
+        {
+            GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            arrow.GetComponent<Arrow>().setArcherObj(gameObject);
+        }
     }
 
     void FixedUpdate()

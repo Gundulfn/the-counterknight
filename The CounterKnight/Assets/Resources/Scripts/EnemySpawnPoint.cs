@@ -13,7 +13,12 @@ public class EnemySpawnPoint : MonoBehaviour
     {
         enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy(Demo)");
 
-        randomSpawnRate = defaultSpawnRate + Random.Range(0, reduceLimit) * -1;
+        randomSpawnRate = defaultSpawnRate + Random.Range(-reduceLimit, 0);
+
+        if(transform.position.x < 0)
+        {
+            randomSpawnRate += 20;
+        }
     }
 
     void FixedUpdate()

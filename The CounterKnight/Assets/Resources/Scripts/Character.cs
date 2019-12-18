@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Character : Person
@@ -10,6 +9,8 @@ public class Character : Person
    public override void Die()
    {
        Destroy(gameObject);
+       Score.saveBestScore();
+       SceneManager.LoadScene(0, LoadSceneMode.Single);
    }
 
    public void openLeftBlock()

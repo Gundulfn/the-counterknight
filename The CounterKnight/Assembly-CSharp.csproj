@@ -61,6 +61,7 @@
      <Compile Include="Assets\Resources\Scripts\EnemySpawnPoint.cs" />
      <Compile Include="Assets\Resources\Scripts\HpStatus.cs" />
      <Compile Include="Assets\Resources\Scripts\Person.cs" />
+     <Compile Include="Assets\Resources\Scripts\Score.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Aysima/Desktop/Burak/Github/the-counterknight/The CounterKnight/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
