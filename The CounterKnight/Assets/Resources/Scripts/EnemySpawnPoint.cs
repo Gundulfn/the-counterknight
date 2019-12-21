@@ -5,19 +5,23 @@ using UnityEngine;
 public class EnemySpawnPoint : MonoBehaviour
 {
     private GameObject enemyPrefab;
-    private float defaultSpawnRate = 100;
-    private float randomSpawnRate;
-    private float reduceLimit = 10;
+    
+    private const decimal SPAWN_REDUCE_LIMIT = 3;
+    private decimal defaultSpawnRate = 5;
+    private decimal extraSpawnDelay = 1;
+
+    private decimal randomSpawnRate;
 
     void Awake()
     {
         enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy(Demo)");
 
-        randomSpawnRate = defaultSpawnRate + Random.Range(-reduceLimit, 0);
+        randomSpawnRate = defaultSpawnRate; // First attack delay is "defaultSpawnRate"
+                                            // Then it will be random
 
         if(transform.position.x < 0)
         {
-            randomSpawnRate += 20;
+            randomSpawnRate += getRandomSpawnDelay(); // Delay to first attack from left
         }
     }
 
@@ -26,14 +30,26 @@ public class EnemySpawnPoint : MonoBehaviour
         if(randomSpawnRate <= 0)
         {
             spawnEnemy();
-            randomSpawnRate = defaultSpawnRate + Random.Range(0, reduceLimit) * -1;
+            
+            //Reducing defaulSpawnRate
+            if(defaultSpawnRate > SPAWN_REDUCE_LIMIT)
+            {
+                defaultSpawnRate -= 0.2M;
+            }
+
+            randomSpawnRate = defaultSpawnRate + getRandomSpawnDelay();
         }
 
-        randomSpawnRate--;
+        randomSpawnRate -= (decimal)Time.deltaTime;
     }
 
     private void spawnEnemy()
     {
         Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+    }
+
+    private decimal getRandomSpawnDelay()
+    {
+        return (decimal)Random.Range(0, decimal.ToSingle(extraSpawnDelay));
     }
 }

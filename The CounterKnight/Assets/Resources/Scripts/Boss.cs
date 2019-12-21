@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Boss : Person
 {
-   public override void Die()
+   protected override void Die()
    {
-       Debug.Log("HEYEYEYE");
        reduceHp();
    }
 }

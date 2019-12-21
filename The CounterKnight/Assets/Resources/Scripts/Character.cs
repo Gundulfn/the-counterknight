@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Character : Person
 {
-   public override void Die()
+   protected override void Die()
    {
        Destroy(gameObject);
        Score.saveBestScore();

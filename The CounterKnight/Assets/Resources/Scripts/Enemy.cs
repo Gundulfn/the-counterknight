@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float enemySpeed = -0.05f;
-    private float selfDestructTime;
+    private float enemySpeed = -2;
+
+    private Rigidbody2D rb;
     private BoxCollider2D boxCol;
     private GameObject arrowPrefab;
 
     void Start()
     {
-        selfDestructTime = 4;
         boxCol = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
         arrowPrefab = (GameObject)Resources.Load("Prefabs/Arrow(Demo)");
-
-        if(selfDestructTime != 0)
-        {
-            StartCoroutine(destroyEnemy());
-        }
+        
+        rb.gravityScale = 0;
 
         if(transform.position.x < 0)
         {
@@ -26,7 +24,7 @@ public class Enemy : MonoBehaviour
             boxCol.offset = new Vector2( -boxCol.offset.x, boxCol.offset.y);
         }
 
-        //Just fun
+        // Hidden random attack 
         int x = Random.Range(0, 3);
 
         if(x == 0)
@@ -38,7 +36,9 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(0, enemySpeed, 0);
+        rb.velocity = transform.up * enemySpeed * Time.deltaTime;
+
+        transform.Translate(0, enemySpeed * Time.deltaTime, 0);
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -50,15 +50,13 @@ public class Enemy : MonoBehaviour
         }    
     }
 
-    private IEnumerator destroyEnemy()
-    {
-        yield return new WaitForSeconds(selfDestructTime);
-        Destroy(gameObject);
-    }
-
-
     public void setEnemySpeed(float newSpeed)
     {
         enemySpeed = (newSpeed < 0) ? newSpeed : -newSpeed;
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }

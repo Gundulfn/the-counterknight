@@ -8,10 +8,15 @@ public class Person : MonoBehaviour
 
     void Update()
     {
-        if(hp == 0)
+        if(hp <= 0)
         {
             Die();
         }
+    }
+
+    protected void setHp(int newHp)
+    {
+        hp = newHp;
     }
 
     public int getHp()
@@ -24,7 +29,7 @@ public class Person : MonoBehaviour
         hp--;
     }
 
-    public virtual void Die()
+    protected virtual void Die()
     {
        Debug.Log("So you are just a person...");
     }
