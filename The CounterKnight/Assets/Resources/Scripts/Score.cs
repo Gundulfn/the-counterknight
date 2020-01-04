@@ -35,4 +35,10 @@ public class Score : MonoBehaviour
 
         score = 0;
     }
+
+    public static void resetScore()
+    {
+        saveBestScore();
+        currentScoreText.text = "Score: " + score.ToString();
+    }
 }

@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class HpStatus : MonoBehaviour
 {
-    private Character character;
-    private Text hpText;
+    private static Image hpImage;
+    private static string filePath = "UI/InGame/Heart/Heart(";
 
-    void Awake()
+    void Start()
     {
-        character = GameObject.Find("Character(Demo)").GetComponent<Character>();
-        hpText = GetComponent<Text>();
+        hpImage = GetComponent<Image>();
     }
 
-    void Update()
+    public static void setHpStatus(Character character)
     {
-        hpText.text = character.getHp().ToString();
+        hpImage.sprite = Resources.Load<Sprite>(filePath + character.getHp().ToString() + ")");
     }
 }

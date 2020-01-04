@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Person : MonoBehaviour
 {
-    private int hp = 5;
+    private const int DEFAULT_HP = 4;
+    private int hp = DEFAULT_HP;
 
     void Update()
     {
@@ -24,7 +25,15 @@ public class Person : MonoBehaviour
         return hp;
     }
 
-    public void reduceHp()
+    internal void resetHp(int key) // For safety, research it
+    {
+        if(key == 132426233)
+        {
+            hp = DEFAULT_HP;
+        }
+    }
+
+    protected void reduceHp()
     {
         hp--;
     }

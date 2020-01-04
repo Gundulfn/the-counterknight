@@ -57,12 +57,14 @@
      <Compile Include="Assets\Resources\Scripts\Background.cs" />
      <Compile Include="Assets\Resources\Scripts\Boss.cs" />
      <Compile Include="Assets\Resources\Scripts\Character.cs" />
+     <Compile Include="Assets\Resources\Scripts\DestroyClass.cs" />
      <Compile Include="Assets\Resources\Scripts\Enemy.cs" />
      <Compile Include="Assets\Resources\Scripts\EnemySpawnPoint.cs" />
      <Compile Include="Assets\Resources\Scripts\HpStatus.cs" />
      <Compile Include="Assets\Resources\Scripts\Person.cs" />
      <Compile Include="Assets\Resources\Scripts\Score.cs" />
      <Compile Include="Assets\Resources\Scripts\TouchBlock.cs" />
+     <Compile Include="Assets\Resources\Scripts\UIHandler.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Aysima/Desktop/Burak/Github/the-counterknight/The CounterKnight/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

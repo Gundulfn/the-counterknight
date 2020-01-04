@@ -7,7 +7,8 @@ public class EnemySpawnPoint : MonoBehaviour
     private GameObject enemyPrefab;
     
     private const decimal SPAWN_REDUCE_LIMIT = 3;
-    private decimal defaultSpawnRate = 5;
+    private const decimal FIRST_SPAWN_RATE = 5;
+    private static decimal defaultSpawnRate = FIRST_SPAWN_RATE;
     private decimal extraSpawnDelay = 1;
 
     private decimal randomSpawnRate;
@@ -51,5 +52,10 @@ public class EnemySpawnPoint : MonoBehaviour
     private decimal getRandomSpawnDelay()
     {
         return (decimal)Random.Range(0, decimal.ToSingle(extraSpawnDelay));
+    }
+
+    public static void resetSpawnRate()
+    {
+        defaultSpawnRate = FIRST_SPAWN_RATE;
     }
 }

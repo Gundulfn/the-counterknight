@@ -34,7 +34,7 @@ public class Arrow : MonoBehaviour
     {
         if(col.gameObject.tag == "Player")
         {
-            col.gameObject.GetComponent<Character>().reduceHp();
+            col.gameObject.GetComponent<Character>().reduceCharHp();
             
             Destroy(gameObject);
         } 
