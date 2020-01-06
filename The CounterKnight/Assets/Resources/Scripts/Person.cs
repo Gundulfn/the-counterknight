@@ -7,14 +7,6 @@ public class Person : MonoBehaviour
     private const int DEFAULT_HP = 4;
     private int hp = DEFAULT_HP;
 
-    void Update()
-    {
-        if(hp <= 0)
-        {
-            Die();
-        }
-    }
-
     protected void setHp(int newHp)
     {
         hp = newHp;
@@ -36,6 +28,12 @@ public class Person : MonoBehaviour
     protected void reduceHp()
     {
         hp--;
+
+        // Check if hp is equal to or lower than zero
+        if(hp <= 0)
+        {
+            Die();
+        }
     }
 
     protected virtual void Die()

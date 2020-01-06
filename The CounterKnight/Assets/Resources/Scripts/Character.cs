@@ -9,16 +9,21 @@ public class Character : Person
        HpStatus.setHpStatus(this);
    }
    
-   public void resetAnimator()
-   {
-       Animator animator = GetComponent<Animator>();
-       animator.Rebind();
-   }
-
    protected override void Die()
    {
-       Destroy(gameObject);
+       // Play Dead Animation, after open DeadUI
        Score.saveBestScore();
-       Time.timeScale = 0;
+
+       UIHandler uIHandler = GameObject.FindObjectOfType<UIHandler>();
+       uIHandler.openDeadUI();
+   }
+
+   public void resetCharacter()
+   {
+       resetHp(132426233);
+       HpStatus.setHpStatus(this);
+
+       Animator animator = GetComponent<Animator>();
+       animator.Rebind();
    }
 }
