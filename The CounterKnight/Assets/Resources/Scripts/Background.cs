@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    private float scrollSpeed = 0.15f;
+    private float scrollSpeed = 0.12f;
     
     void Update()
     {

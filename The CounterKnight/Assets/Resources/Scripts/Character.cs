@@ -1,24 +1,31 @@
-﻿using UnityEngine.SceneManagement;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Character : Person
 {
-   public void reduceCharHp()
-   {
-       reduceHp();
-       HpStatus.setHpStatus(this);
-   }
-   
-   protected override void Die()
-   {
-       // Play Dead Animation, after open DeadUI
-       Score.saveBestScore();
+    private static Animator animator;
+    
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
-       UIHandler uIHandler = GameObject.FindObjectOfType<UIHandler>();
-       uIHandler.openDeadUI();
-   }
+    public void reduceCharHp()
+    {
+        reduceHp();
+        HpStatus.setHpStatus(this);
+    }
+    
+    protected override void Die()
+    {
+        // Play Dead Animation, after open DeadUI
+        Score.saveBestScore();
 
-   public void resetCharacter()
+        UIHandler uIHandler = GameObject.FindObjectOfType<UIHandler>();
+        uIHandler.openDeadUI();
+    }
+
+    public void resetCharacter()
    {
        resetHp(132426233);
        HpStatus.setHpStatus(this);
@@ -26,4 +33,22 @@ public class Character : Person
        Animator animator = GetComponent<Animator>();
        animator.Rebind();
    }
+
+    // Animator Parameter Functions
+    public static void setLeftHold(bool isLeftHold)
+    {
+       animator.SetBool("leftBlockHold", isLeftHold);
+    } 
+
+    public static void triggerLeftBlock()
+    {
+       animator.SetTrigger("leftBlock");
+    }  
+
+    public static void triggerRighttBlock()
+    {
+       animator.SetTrigger("rightBlock");
+    }
+
+     
 }

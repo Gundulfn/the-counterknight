@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - HpStatus
     - Score
     - TouchBlock
+    - UIHandler
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -18,8 +19,11 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnimatorStateTransitionInspector
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -31,6 +35,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.RawImage
     - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scenes/GameScene.unity:
@@ -64,6 +69,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -75,35 +84,39 @@ ScriptsOnlyBuild:
     - Class: 111
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9862}
+      Script: {instanceID: 9794}
     - Class: 114
       Script: {instanceID: 9864}
     - Class: 114
-      Script: {instanceID: 9870}
+      Script: {instanceID: 9866}
     - Class: 114
-      Script: {instanceID: 9876}
+      Script: {instanceID: 9872}
     - Class: 114
-      Script: {instanceID: 9884}
+      Script: {instanceID: 9878}
     - Class: 114
-      Script: {instanceID: 9920}
+      Script: {instanceID: 9886}
+    - Class: 114
+      Script: {instanceID: 9908}
     - Class: 114
       Script: {instanceID: 9922}
     - Class: 114
-      Script: {instanceID: 9938}
+      Script: {instanceID: 9924}
     - Class: 114
-      Script: {instanceID: 10066}
+      Script: {instanceID: 9940}
     - Class: 114
-      Script: {instanceID: 10148}
+      Script: {instanceID: 10068}
     - Class: 114
-      Script: {instanceID: 10274}
+      Script: {instanceID: 10150}
     - Class: 114
-      Script: {instanceID: 10968}
+      Script: {instanceID: 10276}
     - Class: 114
-      Script: {instanceID: 11294}
+      Script: {instanceID: 10506}
     - Class: 114
-      Script: {instanceID: 11410}
+      Script: {instanceID: 10974}
     - Class: 114
-      Script: {instanceID: 13322}
+      Script: {instanceID: 11300}
+    - Class: 114
+      Script: {instanceID: 11416}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -157,6 +170,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: GroupTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 4a861c0dc0879641de7d559dc4c05f33
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UIHandler
   - hash:
       serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
@@ -651,6 +670,12 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
+      Hash: 5018adfff599bfd8e7de2059db3cb045
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TouchBlock
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.Analytics.Editor.dll
     namespaceName: UnityEditor.Analytics
@@ -673,6 +698,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextContainer
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DestroyClass
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -811,12 +842,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 5018adfff599bfd8e7de2059db3cb045
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TouchBlock
   platform: 13
   scenePathNames:
   - Assets/Scenes/GameScene.unity

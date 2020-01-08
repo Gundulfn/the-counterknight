@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
@@ -57,23 +55,20 @@ public class UIHandler : MonoBehaviour
 
     public void restartButtonClick()
     {
-        Score.resetScore();
-        EnemySpawnPoint.resetSpawnRate();
-
-        Character character = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
-        character.resetCharacter();
-
-        DestroyClass.destroyObjectsByTag("Enemy");
-        DestroyClass.destroyObjectsByTag("Projectile");
-        
+        resetGame();
         Time.timeScale = 1f;
         setMainUIActivity(GAME_UI);
     }
 
     public void exitToEntranceButtonClick()
     {
-        setMainUIActivity(ENTRANCE_UI);
+        if(uiArray[GAME_UI].activeSelf)
+        {
+            resetGame();
+        }
+        
         GetComponent<Score>().enabled = false;
+        setMainUIActivity(ENTRANCE_UI);
     }
 
     // EntranceUI Button Functions
@@ -84,7 +79,7 @@ public class UIHandler : MonoBehaviour
         setMainUIActivity(GAME_UI);
         GetComponent<Score>().enabled = true;
 
-        if(PlayerPrefs.GetInt("OpenTutorial", 0) == 0)
+        if(PlayerPrefs.GetInt("OpenTutorial", 0) == 0 && !Application.isEditor)
         {
             Time.timeScale = 0;
             uiArray[TUTORIAL_UI].SetActive(true);
@@ -136,6 +131,18 @@ public class UIHandler : MonoBehaviour
     {
         Time.timeScale = 0;
         uiArray[DEAD_UI].SetActive(true);
+    }
+
+    private void resetGame()
+    {
+        Score.resetScore();
+        EnemySpawnPoint.resetSpawnRate();
+
+        Character character = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
+        character.resetCharacter();
+
+        DestroyClass.destroyObjectsByTag("Enemy");
+        DestroyClass.destroyObjectsByTag("Projectile");
     }
 
     private void setMainUIActivity(int newUINo)

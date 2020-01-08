@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
@@ -18,7 +17,7 @@ public class Arrow : MonoBehaviour
         
         Vector3 targetVector = target.position - transform.position;
         float rotatingIndex = Vector3.Cross(targetVector, transform.up).z;
-        float rotate = Map(targetVector.y, -9, -3, 6, 20);
+        float rotate = Map(targetVector.y, -9, -3, 5, 18);
 
         transform.Rotate(0, 0, rotate * rotatingIndex);
 
@@ -42,6 +41,15 @@ public class Arrow : MonoBehaviour
         {
             Score.increaseScore();
 
+            if(col.gameObject.transform.position.x < 0)
+            {
+                Character.triggerLeftBlock();
+            }
+            else
+            {
+                Character.triggerRighttBlock();
+            }
+            
             Destroy(shooter);
             Destroy(gameObject);
         }
