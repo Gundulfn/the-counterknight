@@ -61,7 +61,9 @@
      <Compile Include="Assets\Resources\Scripts\Enemy.cs" />
      <Compile Include="Assets\Resources\Scripts\EnemySpawnPoint.cs" />
      <Compile Include="Assets\Resources\Scripts\HpStatus.cs" />
+     <Compile Include="Assets\Resources\Scripts\Lighting.cs" />
      <Compile Include="Assets\Resources\Scripts\Person.cs" />
+     <Compile Include="Assets\Resources\Scripts\Projectile.cs" />
      <Compile Include="Assets\Resources\Scripts\Score.cs" />
      <Compile Include="Assets\Resources\Scripts\TouchBlock.cs" />
      <Compile Include="Assets\Resources\Scripts\UIHandler.cs" />

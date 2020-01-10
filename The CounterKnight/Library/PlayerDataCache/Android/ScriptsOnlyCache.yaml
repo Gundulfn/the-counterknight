@@ -7,6 +7,7 @@ ScriptsOnlyBuild:
     - Enemy
     - EnemySpawnPoint
     - HpStatus
+    - Lighting
     - Score
     - TouchBlock
     - UIHandler
@@ -19,7 +20,6 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnimatorStateTransitionInspector
     - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
@@ -110,18 +110,24 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10276}
     - Class: 114
-      Script: {instanceID: 10506}
+      Script: {instanceID: 10508}
     - Class: 114
-      Script: {instanceID: 10974}
+      Script: {instanceID: 10976}
     - Class: 114
-      Script: {instanceID: 11300}
+      Script: {instanceID: 11064}
     - Class: 114
-      Script: {instanceID: 11416}
+      Script: {instanceID: 11304}
+    - Class: 114
+      Script: {instanceID: 11420}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 212
       Script: {instanceID: 0}
@@ -658,6 +664,12 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Projectile
+  - hash:
+      serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -772,6 +784,12 @@ ScriptsOnlyBuild:
     className: AudioTrack
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Lighting
+  - hash:
+      serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
@@ -826,7 +844,7 @@ ScriptsOnlyBuild:
     className: PlaymodeTestsController
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 07efe8db9abe94419e0293397169c277
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Enemy

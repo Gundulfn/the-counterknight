@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     private GameObject arrowPrefab;
 
     private Animator animator;
+    private float shootDelay;
 
     void Start()
     {
@@ -29,10 +30,12 @@ public class Enemy : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        // Hidden random attack 
-        int x = Random.Range(0, 3);
+        shootDelay = Random.Range(2, 4);
+        StartCoroutine(fireArrowAfterDelay());
 
-        if(x == 0)
+        int supriseAttackChance = Random.Range(0, 3);
+
+        if(supriseAttackChance == 0)
         {
             GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
             arrow.GetComponent<Arrow>().setArcherObj(gameObject);
@@ -53,12 +56,9 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Player")
+        if(col.gameObject.GetComponent<Lighting>())
         {
-            animator.SetTrigger("attack");
-            StartCoroutine(fireArrowUntilAnimation());
-
-            animator.SetBool("haveShot", true);
+            animator.SetBool("isDead", true);
         }    
     }
     
@@ -67,15 +67,15 @@ public class Enemy : MonoBehaviour
         enemySpeed = (newSpeed < 0) ? newSpeed : -newSpeed;
     }
 
-    public void killEnemy()
+    IEnumerator fireArrowAfterDelay()
     {
-        animator.SetBool("isDead", true);
-    }
+        yield return new WaitForSeconds(shootDelay);
+        animator.SetTrigger("attack");
 
-    IEnumerator fireArrowUntilAnimation()
-    {
+        animator.SetBool("haveShot", true);
+        // Wait for animation playing
         AnimationClip attackClip = (AnimationClip)Resources.Load("Animations/DarkElf/DarkElfAttack");
-        yield return new WaitForSeconds( attackClip.length - 0.2f ); // -0.2f for arrow shoot delay
+        yield return new WaitForSeconds( attackClip.length - 0.2f ); // -0.2f for shoot delay
 
         GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
         arrow.GetComponent<Arrow>().setArcherObj(gameObject);

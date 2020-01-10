@@ -31,7 +31,11 @@ public class Character : Person
        HpStatus.setHpStatus(this);
 
        Animator animator = GetComponent<Animator>();
+       
+       // 2 is index of "KnightFeet" GameObject
+       Animator subAnimator = transform.GetChild(2).GetComponent<Animator>(); 
        animator.Rebind();
+       subAnimator.Rebind();
    }
 
     // Animator Parameter Functions
