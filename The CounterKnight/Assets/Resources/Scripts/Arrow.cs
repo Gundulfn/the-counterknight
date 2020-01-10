@@ -50,7 +50,7 @@ public class Arrow : MonoBehaviour
                 Character.triggerRighttBlock();
             }
             
-            Destroy(shooter);
+            shooter.GetComponent<Enemy>().killEnemy();
             Destroy(gameObject);
         }
     }

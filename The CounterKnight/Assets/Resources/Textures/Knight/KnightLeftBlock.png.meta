@@ -11,6 +11,9 @@ TextureImporter:
   - first:
       213: -7806300631757336857
     second: KnightLeftBlock_2
+  - first:
+      213: -8421542704850121339
+    second: KnightLeftBlock_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -121,7 +124,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46766a5165930f4429906c3a27611e1b
+      spriteID: 3ab5b71779f95444ca4f385498344819
       internalID: -8309337110909628749
       vertices: []
       indices: 
@@ -142,7 +145,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff086136ad26e404bb13f68490523c53
+      spriteID: 8bc9292bc75c6bb4687df28d5c9d2eb1
       internalID: -7798630783260583475
       vertices: []
       indices: 
@@ -163,8 +166,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83957f303bf7aa14baabd5f80873fd11
+      spriteID: 8db3d5051cadf324ea9beb7e8c5f3deb
       internalID: -7806300631757336857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightLeftBlock_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b48d4e41ed1f7454899c4d8897aef173
+      internalID: -8421542704850121339
       vertices: []
       indices: 
       edges: []

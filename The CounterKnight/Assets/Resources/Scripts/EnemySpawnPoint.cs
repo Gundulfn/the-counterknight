@@ -15,7 +15,7 @@ public class EnemySpawnPoint : MonoBehaviour
 
     void Awake()
     {
-        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy(Demo)");
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy(DarkElf)");
 
         randomSpawnRate = defaultSpawnRate; // First attack delay is "defaultSpawnRate"
                                             // Then it will be random
