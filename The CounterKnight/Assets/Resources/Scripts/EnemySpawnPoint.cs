@@ -22,7 +22,7 @@ public class EnemySpawnPoint : MonoBehaviour
 
         if(transform.position.x < 0)
         {
-            randomSpawnRate += getRandomSpawnDelay(); // Delay to first attack from left
+            randomSpawnRate += getRandomSpawnDelay(); // Delay to first spawn from left
         }
     }
 
@@ -38,7 +38,8 @@ public class EnemySpawnPoint : MonoBehaviour
                 defaultSpawnRate -= 0.2M;
             }
 
-            randomSpawnRate = defaultSpawnRate + getRandomSpawnDelay();
+            randomSpawnRate = defaultSpawnRate + getRandomSpawnDelay() 
+                              + (transform.position.x < 0? 1 : 0);   // Delay to spawns from left
         }
 
         randomSpawnRate -= (decimal)Time.deltaTime;

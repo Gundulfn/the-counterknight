@@ -25,26 +25,27 @@ public class UIHandler : MonoBehaviour
     private const int TUTORIAL_UI = 3;
     private const int DEAD_UI = 5;
 
+    private AudioSource aud;
+
     void Awake()
     {
         Time.timeScale = 0;
-    }
-    
-    void Update()
-    {
-        if(uiArray[TUTORIAL_UI].activeSelf && Input.touchCount > 0)
-        {
-            uiArray[TUTORIAL_UI].SetActive(false);
-            PlayerPrefs.SetInt("OpenTutorial", 1); // Tutorial won't be shown next games
-            Time.timeScale = 1;
-        }
+        aud = GetComponent<AudioSource>();
     }
 
     // GameUI Button Functions
+    public void passTutorialButtonClick()
+    {
+        uiArray[TUTORIAL_UI].SetActive(false);
+        PlayerPrefs.SetInt("OpenTutorial", 0); // Tutorial won't be shown next games
+        Time.timeScale = 1;
+    }
+
     public void pauseButtonClick()
     {
         Time.timeScale = 0f;
         uiArray[PAUSE_UI].SetActive(true);
+        setAudioButtonsImages();
     }
     
     public void resumeButtonClick()
@@ -58,6 +59,7 @@ public class UIHandler : MonoBehaviour
         resetGame();
         Time.timeScale = 1f;
         setMainUIActivity(GAME_UI);
+        aud.Play();
     }
 
     public void exitToEntranceButtonClick()
@@ -67,22 +69,30 @@ public class UIHandler : MonoBehaviour
             resetGame();
         }
         
+        aud.Stop();
         GetComponent<Score>().enabled = false;
         setMainUIActivity(ENTRANCE_UI);
+        setAudioButtonsImages();
     }
 
     // EntranceUI Button Functions
     public void startButtonClick()
     {
-        Time.timeScale = 1;
-        //Play reborn animation first, after set UI activity
         setMainUIActivity(GAME_UI);
         GetComponent<Score>().enabled = true;
 
-        if(PlayerPrefs.GetInt("OpenTutorial", 0) == 0 && !Application.isEditor)
+        aud.clip = (AudioClip)Resources.Load("Audios/Musics/GameMusic");
+        aud.volume = 0.1f;
+        aud.loop = true;
+        aud.Play();
+        
+        if(PlayerPrefs.GetInt("OpenTutorial", 1) == 1)
         {
-            Time.timeScale = 0;
             uiArray[TUTORIAL_UI].SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1;
         }
     }
 
@@ -100,7 +110,7 @@ public class UIHandler : MonoBehaviour
     private bool musicOn = true;  
     public void setMusicAud(Image buttonImg)
     {
-        AudioSource musicAud = GetComponent<AudioSource>();
+        AudioSource musicAud = aud;
 
         musicOn = musicOn? false : true;
 
@@ -109,28 +119,21 @@ public class UIHandler : MonoBehaviour
         buttonImg.sprite = Resources.Load<Sprite>("UI/Menu/Music" + (musicOn? "On" : "Off") );
     } 
 
-    private bool soundOn = true;
+    public static bool soundOn = true;
     public void setSoundAud(Image buttonImg)
     {
         AudioSource[] auds = GameObject.FindObjectsOfType<AudioSource>();
 
         soundOn = soundOn? false : true;
 
-        foreach(AudioSource aud in auds)
-        {
-            if(aud.gameObject != this.gameObject)
-            {
-                aud.mute = !soundOn;       
-            }
-        }
-
-        buttonImg.sprite = Resources.Load<Sprite>("UI/Menu/Audio" + (soundOn? "On" : "Off") );
+        buttonImg.sprite = Resources.Load<Sprite>("UI/Menu/Sound" + (soundOn? "On" : "Off") );
     }    
     // OnPlayerDead UI Function
     public void openDeadUI()
     {
         Time.timeScale = 0;
         uiArray[DEAD_UI].SetActive(true);
+        aud.Stop();
     }
 
     private void resetGame()
@@ -145,6 +148,7 @@ public class UIHandler : MonoBehaviour
         DestroyClass.destroyObjectsByTag("Projectile");
     }
 
+    // State Checking Functions
     private void setMainUIActivity(int newUINo)
     {
         currentUINo = newUINo;
@@ -155,5 +159,23 @@ public class UIHandler : MonoBehaviour
         }
 
         uiArray[currentUINo].SetActive(true);
+    }
+
+    private void setAudioButtonsImages()
+    {
+        GameObject[] soundAudObjs = GameObject.FindGameObjectsWithTag("Sound");
+        GameObject[] musicAudObjs = GameObject.FindGameObjectsWithTag("Music");
+
+        foreach(GameObject soundAudObj in soundAudObjs)
+        {
+            soundAudObj.GetComponent<Image>().sprite = 
+                Resources.Load<Sprite>("UI/Menu/Sound" + (soundOn? "On" : "Off") );
+        }
+
+        foreach(GameObject musicAudObj in musicAudObjs)
+        {
+            musicAudObj.GetComponent<Image>().sprite = 
+                Resources.Load<Sprite>("UI/Menu/Music" + (musicOn? "On" : "Off") );
+        }
     }
 }

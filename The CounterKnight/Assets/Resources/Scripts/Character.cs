@@ -4,21 +4,34 @@ using UnityEngine;
 public class Character : Person
 {
     private static Animator animator;
-    
+    private static AudioSource aud;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        aud = GetComponent<AudioSource>();
     }
 
     public void reduceCharHp()
     {
         reduceHp();
         HpStatus.setHpStatus(this);
+
+        if(getHp() != 0 && UIHandler.soundOn)
+        {
+            aud.clip = (AudioClip)Resources.Load("Audios/Sounds/KnightHit");
+            aud.Play();
+        }
     }
     
     protected override void Die()
     {
-        // Play Dead Animation, after open DeadUI
+        if(UIHandler.soundOn)
+        {
+            aud.clip = (AudioClip)Resources.Load("Audios/Sounds/KnightDead"); 
+            aud.Play();
+        }
+        
         Score.saveBestScore();
 
         UIHandler uIHandler = GameObject.FindObjectOfType<UIHandler>();

@@ -4,7 +4,6 @@ public class TouchBlock : MonoBehaviour
 {
     public GameObject leftBlock;
     public GameObject rightBlock;
-    //bool x = false, y = true;
     
     void Update()
     {
@@ -23,19 +22,12 @@ public class TouchBlock : MonoBehaviour
                 setBlockActivity(false, true);
             }
         }
-
-        // if(Input.GetKeyDown(KeyCode.K))
-        // {
-        //     x = !x;
-        //     y = !y;
-        //     setBlockActivity(x, y);
-        // }
     }
-
+    
     private void setBlockActivity(bool state1, bool state2)
     {
-       leftBlock.SetActive(state1);
-       rightBlock.SetActive(state2);
-       Character.setLeftHold(state1);
+        leftBlock.SetActive(state1);
+        rightBlock.SetActive(state2);
+        Character.setLeftHold(state1);
     }
 }

@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     private float projectileSpeed;
     private bool isTargetSet = false;
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
     void Awake()
     {
@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        if(isTargetSet)
+        if(rb && isTargetSet)
         {
             rb.velocity = transform.up * projectileSpeed * Time.deltaTime;
         }                                                
@@ -34,13 +34,13 @@ public class Projectile : MonoBehaviour
         transform.Rotate(0, 0, rotate * rotatingIndex);
         isTargetSet = true;
     }
-
+    
     private float Map(float x, float in_min, float in_max, float out_min, float out_max)
     {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
-    void OnBecameInvisible()
+    private void OnBecameInvisible()
     {
         Destroy(gameObject);
     }

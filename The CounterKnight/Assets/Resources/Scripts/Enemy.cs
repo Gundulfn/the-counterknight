@@ -9,10 +9,11 @@ public class Enemy : MonoBehaviour
     
     private Rigidbody2D rb;
     private BoxCollider2D boxCol;
+    
     private GameObject arrowPrefab;
-
     private Animator animator;
-    private float shootDelay;
+    private AudioSource aud; // NOTE: Default audioClip of "aud" is "EnemyAttack" 
+    private float shootDelay = 2;
 
     void Start()
     {
@@ -29,8 +30,8 @@ public class Enemy : MonoBehaviour
         }
 
         animator = GetComponent<Animator>();
+        aud = GetComponent<AudioSource>();
 
-        shootDelay = Random.Range(2, 4);
         StartCoroutine(fireArrowAfterDelay());
 
         int supriseAttackChance = Random.Range(0, 3);
@@ -39,6 +40,11 @@ public class Enemy : MonoBehaviour
         {
             GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
             arrow.GetComponent<Arrow>().setArcherObj(gameObject);
+            
+            if(UIHandler.soundOn)
+            {
+                aud.Play();
+            } 
         }
     }
 
@@ -58,7 +64,7 @@ public class Enemy : MonoBehaviour
     {
         if(col.gameObject.GetComponent<Lighting>())
         {
-            animator.SetBool("isDead", true);
+            animator.SetBool("isDead", true);            
         }    
     }
     
@@ -79,6 +85,11 @@ public class Enemy : MonoBehaviour
 
         GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
         arrow.GetComponent<Arrow>().setArcherObj(gameObject);
+        
+        if(UIHandler.soundOn)
+        {
+            aud.Play();
+        }
     }
 
     void OnBecameInvisible()

@@ -12,9 +12,11 @@ public class Arrow : Projectile
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         setObjectToTarget(target, arrowSpeed);
     }
-    
+
     void OnTriggerEnter2D(Collider2D col)
     {
+        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), col);
+
         if(col.gameObject.tag == "Player")
         {
             col.gameObject.GetComponent<Character>().reduceCharHp();
@@ -34,11 +36,9 @@ public class Arrow : Projectile
                 Character.triggerRighttBlock();
             }
             
-            GameObject lighting = Instantiate( (GameObject)Resources.Load(Lighting.lightingPrefabPath),
-                                                transform.position, Quaternion.identity);
+            // Counter Attack
+            Lighting.createLighting(transform.position, shooter.transform);
             
-            lighting.GetComponent<Lighting>().setEnemyTarget(shooter.transform);
-
             Destroy(gameObject);
         }
     }
