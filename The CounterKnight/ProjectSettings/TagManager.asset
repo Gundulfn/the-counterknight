@@ -7,6 +7,8 @@ TagManager:
   - Block
   - Enemy
   - Projectile
+  - Sound
+  - Music
   layers:
   - Default
   - TransparentFX
