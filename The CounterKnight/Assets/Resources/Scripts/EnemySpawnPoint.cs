@@ -5,41 +5,72 @@ using UnityEngine;
 public class EnemySpawnPoint : MonoBehaviour
 {
     private GameObject enemyPrefab;
-    
+    private GameObject warningObj;
+
     private const decimal SPAWN_REDUCE_LIMIT = 3;
     private const decimal FIRST_SPAWN_RATE = 5;
     private static decimal defaultSpawnRate = FIRST_SPAWN_RATE;
-    private decimal extraSpawnDelay = 1;
+    private decimal randomDelayLimit = 1;
 
     private decimal randomSpawnRate;
+
+    private int spawnCount = 0;
+    private int groupAttackCount = GROUP_ATTACK_COUNT;
+    private const int GROUP_ATTACK_COUNT = 3;
+    private const int GROUP_ATTACK_TIME = 5;
 
     void Awake()
     {
         enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy(DarkElf)");
+        warningObj = transform.GetChild(0).gameObject;
 
-        randomSpawnRate = defaultSpawnRate; // First attack delay is "defaultSpawnRate"
-                                            // Then it will be random
-
-        if(transform.position.x < 0)
-        {
-            randomSpawnRate += getRandomSpawnDelay(); // Delay to first spawn from left
-        }
+        randomSpawnRate = getRandomSpawnDelay();
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        //Reset Control
+        if(defaultSpawnRate == FIRST_SPAWN_RATE && spawnCount != 0)
+        {
+            randomSpawnRate = getRandomSpawnDelay();
+            spawnCount = 0;
+            groupAttackCount = GROUP_ATTACK_COUNT;
+        }
+
         if(randomSpawnRate <= 0)
         {
             spawnEnemy();
             
-            //Reducing defaulSpawnRate
-            if(defaultSpawnRate > SPAWN_REDUCE_LIMIT)
+            if(spawnCount % GROUP_ATTACK_TIME == 0 && spawnCount != 0)
             {
-                defaultSpawnRate -= 0.2M;
-            }
+                if(groupAttackCount == GROUP_ATTACK_COUNT)
+                {
+                    warningObj.GetComponent<Animation>().Play();
+                }
 
-            randomSpawnRate = defaultSpawnRate + getRandomSpawnDelay() 
-                              + (transform.position.x < 0? 1 : 0);   // Delay to spawns from left
+                groupAttackCount--;
+
+                if(groupAttackCount == 0)
+                {
+                    spawnCount++;
+                    randomSpawnRate = getRandomSpawnDelay();
+                }
+                else
+                {
+                    randomSpawnRate = 1; // For faster attacks
+                }
+            }
+            else
+            {
+                //Reducing defaulSpawnRate
+                if(defaultSpawnRate > SPAWN_REDUCE_LIMIT)
+                {
+                    defaultSpawnRate -= 0.2M;
+                }
+
+                randomSpawnRate = getRandomSpawnDelay();  
+                spawnCount++;
+            }    
         }
 
         randomSpawnRate -= (decimal)Time.deltaTime;
@@ -52,10 +83,11 @@ public class EnemySpawnPoint : MonoBehaviour
 
     private decimal getRandomSpawnDelay()
     {
-        return (decimal)Random.Range(0, decimal.ToSingle(extraSpawnDelay));
+        return defaultSpawnRate + (decimal)Random.Range(0, decimal.ToSingle(randomDelayLimit))
+                                + (transform.position.x < 0? 1.2m : 0); // Delay to spawns from left
     }
 
-    public static void resetSpawnRate()
+    public static void resetSpawnPoint()
     {
         defaultSpawnRate = FIRST_SPAWN_RATE;
     }

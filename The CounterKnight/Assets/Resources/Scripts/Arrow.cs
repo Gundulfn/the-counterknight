@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Arrow : Projectile
 {
-    private float arrowSpeed = -300;
+    private float arrowSpeed = 300;
     private Transform target;
     private GameObject shooter;
 
@@ -17,13 +16,13 @@ public class Arrow : Projectile
     {
         Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), col);
 
-        if(col.gameObject.tag == "Player")
+        if(col.gameObject.CompareTag("Player"))
         {
             col.gameObject.GetComponent<Character>().reduceCharHp();
             
             Destroy(gameObject);
         } 
-        else if(col.gameObject.tag == "Block")
+        else if(col.gameObject.CompareTag("Block"))
         {
             Score.increaseScore();
 

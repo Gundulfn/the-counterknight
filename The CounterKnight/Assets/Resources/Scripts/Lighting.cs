@@ -5,14 +5,11 @@ using UnityEngine;
 public class Lighting : Projectile
 {
     public static string lightingPrefabPath = "Prefabs/Lighting";
-    private float lightingSpeed = 800;
+    private static float lightingSpeed = 800;
 
     void Start()
     {
-        if(!UIHandler.soundOn)
-        {
-            GetComponent<AudioSource>().mute = true;
-        }
+        GetComponent<AudioSource>().mute = !UIHandler.soundOn;
     }
 
     public static void createLighting(Vector3 pos, Transform enemyTarget)
@@ -21,14 +18,10 @@ public class Lighting : Projectile
                                                 pos, Quaternion.identity);
             
         Lighting lighting = lightingObj.GetComponent<Lighting>();           
-        lighting.setEnemyTarget(enemyTarget);
-    }
+        
+        lighting.setObjectToTarget(enemyTarget, lightingSpeed);
 
-    public void setEnemyTarget(Transform enemyTarget)
-    {
-        setObjectToTarget(enemyTarget, lightingSpeed);
-
-        GetComponent<ParticleSystem>().Play();
+        lighting.GetComponent<ParticleSystem>().Play();
     }
 
     void OnTriggerEnter2D(Collider2D col)

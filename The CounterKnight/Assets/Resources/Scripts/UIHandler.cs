@@ -139,7 +139,7 @@ public class UIHandler : MonoBehaviour
     private void resetGame()
     {
         Score.resetScore();
-        EnemySpawnPoint.resetSpawnRate();
+        EnemySpawnPoint.resetSpawnPoint();
 
         Character character = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
         character.resetCharacter();

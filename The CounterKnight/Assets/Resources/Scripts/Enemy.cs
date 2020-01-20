@@ -54,23 +54,21 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-        rb.velocity = transform.up * enemySpeed * Time.deltaTime;
+        else
+        {
+            rb.velocity = transform.up * enemySpeed * Time.deltaTime;
 
-        transform.Translate(0, enemySpeed * Time.deltaTime, 0);
+            transform.Translate(0, enemySpeed * Time.deltaTime, 0);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.GetComponent<Lighting>())
         {
-            animator.SetBool("isDead", true);            
+            animator.SetBool("isDead", true);
+            Destroy(boxCol);            
         }    
-    }
-    
-    public void setEnemySpeed(float newSpeed)
-    {
-        enemySpeed = (newSpeed < 0) ? newSpeed : -newSpeed;
     }
 
     IEnumerator fireArrowAfterDelay()

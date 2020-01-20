@@ -7,11 +7,6 @@ public class Person : MonoBehaviour
     private const int DEFAULT_HP = 4;
     private int hp = DEFAULT_HP;
 
-    protected void setHp(int newHp)
-    {
-        hp = newHp;
-    }
-
     public int getHp()
     {
         return hp;
@@ -36,8 +31,5 @@ public class Person : MonoBehaviour
         }
     }
 
-    protected virtual void Die()
-    {
-       Debug.Log("So you are just a person...");
-    }
+    protected virtual void Die(){  }
 }
