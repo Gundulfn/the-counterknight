@@ -106,6 +106,24 @@ public class UIHandler : MonoBehaviour
         Application.Quit();
     }   
 
+    public void setLanguage()
+    {
+        string lang = PlayerPrefs.GetString("Language", "en");
+
+        if(lang == "en")
+        {
+            PlayerPrefs.SetString("Language", "tr");
+            lang = "tr";
+        }
+        else
+        {
+            PlayerPrefs.SetString("Language", "en");
+            lang = "en";
+        }
+
+        GetComponent<LanguageOptions>().changeLanguage(lang);
+    }
+
     // AudioSource Button Functions
     private bool musicOn = true;  
     public void setMusicAud(Image buttonImg)
@@ -128,6 +146,7 @@ public class UIHandler : MonoBehaviour
 
         buttonImg.sprite = Resources.Load<Sprite>("UI/Menu/Sound" + (soundOn? "On" : "Off") );
     }    
+    
     // OnPlayerDead UI Function
     public void openDeadUI()
     {

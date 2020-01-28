@@ -1,0 +1,14 @@
+﻿Start;Başla
+;Credits;Jenerik
+;Exit;Çıkış
+;Exit;Çıkış
+;Exit;Çıkış
+;Resume;Devam
+;Restart;Tekrar
+;Restart;Tekrar
+;You Are Dead;Öldün
+;Tap here for arrows coming from left;Soldan gelen oklar için buraya dokun
+;Tap here for arrows coming from right;Sağdan gelen oklar için buraya dokun
+;Okay;Tamam
+;EN;TR
+;EN;TR

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemySpawnPoint : MonoBehaviour
 {
@@ -53,6 +51,7 @@ public class EnemySpawnPoint : MonoBehaviour
                 if(groupAttackCount == 0)
                 {
                     spawnCount++;
+                    groupAttackCount = GROUP_ATTACK_COUNT;
                     randomSpawnRate = getRandomSpawnDelay();
                 }
                 else
