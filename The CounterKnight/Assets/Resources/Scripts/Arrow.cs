@@ -25,7 +25,8 @@ public class Arrow : Projectile
         else if(col.gameObject.CompareTag("Block"))
         {
             Score.increaseScore();
-
+            Skill.increaseStack();
+            
             if(col.gameObject.transform.position.x < 0)
             {
                 Character.triggerLeftBlock();

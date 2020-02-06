@@ -158,6 +158,7 @@ public class UIHandler : MonoBehaviour
     private void resetGame()
     {
         Score.resetScore();
+        Skill.resetStack();
         EnemySpawnPoint.resetSpawnPoint();
 
         Character character = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
