@@ -25,7 +25,7 @@ public class Arrow : Projectile
         else if(col.gameObject.CompareTag("Block"))
         {
             Score.increaseScore();
-            Skill.increaseStack();
+            Skill.instance.increaseStack();
             
             if(col.gameObject.transform.position.x < 0)
             {
@@ -36,8 +36,11 @@ public class Arrow : Projectile
                 Character.triggerRighttBlock();
             }
             
-            // Counter Attack
-            Lighting.createLighting(transform.position, shooter.transform);
+            if(shooter)
+            {
+                // Counter Attack
+                Lighting.createLighting(transform.position, shooter.transform);
+            }
             
             Destroy(gameObject);
         }

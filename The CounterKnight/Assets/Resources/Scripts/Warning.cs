@@ -13,6 +13,9 @@ public class Warning : MonoBehaviour
 
     public void playAud()
     {
-        aud.Play();
+        if(UIHandler.soundOn)
+        {
+            aud.Play();
+        }
     }
 }

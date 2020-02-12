@@ -5,9 +5,11 @@ public class Character : Person
 {
     private static Animator animator;
     private static AudioSource aud;
+    public static Character instance;
 
     void Start()
     {
+        instance = this;
         animator = GetComponent<Animator>();
         aud = GetComponent<AudioSource>();
     }
@@ -51,6 +53,13 @@ public class Character : Person
        subAnimator.Rebind();
    }
 
+    private bool animatorActivity = true;
+    public void setAnimatorActivity()
+    {
+        animatorActivity = !animatorActivity;
+        animator.enabled = animatorActivity;
+    }
+    
     // Animator Parameter Functions
     public static void setLeftHold(bool isLeftHold)
     {
@@ -66,6 +75,4 @@ public class Character : Person
     {
        animator.SetTrigger("rightBlock");
     }
-
-     
 }

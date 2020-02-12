@@ -8,9 +8,9 @@ public class DestroyClass : MonoBehaviour
     {
         GameObject[] targetObjs = GameObject.FindGameObjectsWithTag (tag);
         
-        for(var i = 0 ; i < targetObjs.Length ; i ++)
+        foreach(GameObject targetObj in targetObjs)
         {
-            Destroy(targetObjs[i]);
+            Destroy(targetObj);
         }
     }
 }
