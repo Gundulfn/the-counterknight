@@ -12,3 +12,4 @@
 ;Okay;Tamam
 ;EN;TR
 ;EN;TR
+;This is your skill button, click it when it's ready;Bu da yetenek butonun, dolduğunda tıkla
