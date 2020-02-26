@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 public class Lighting : Projectile
 {
@@ -26,23 +25,25 @@ public class Lighting : Projectile
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.GetComponent<Enemy>())
+        if(col.gameObject.GetComponent<Enemy>() || col.gameObject.GetComponent<Boss>())
         {
-            // Fake Destroy(gameObject)
-            Destroy( GetComponent<BoxCollider2D>() );
-            Destroy( rb );
-            Destroy( GetComponent<ParticleSystem>() );
+            if(col.gameObject.GetComponent<Enemy>())
+            {
+                Score.increaseScore();
+            }
 
-            GetComponent<SpriteRenderer>().sprite = null;
+            Destroy( GetComponent<BoxCollider2D>() );
+            Destroy( GetComponent<ParticleSystem>() );
+            Destroy( GetComponent<Rigidbody2D>() );
             
-            StartCoroutine(destroyObjAfterAudio());
+            GetComponent<SpriteRenderer>().sprite = null;
+            StartCoroutine(destroyAfterAudioEnds());
         }
     }
 
-    IEnumerator destroyObjAfterAudio()
+    private IEnumerator destroyAfterAudioEnds()
     {
-        AudioClip audClip = GetComponent<AudioSource>().clip;
-        yield return new WaitForSeconds(audClip.length);
+        yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length);
         Destroy(gameObject);
     }
 }

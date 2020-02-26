@@ -19,17 +19,18 @@ public class Score : MonoBehaviour
 
     void Start()
     {
-        currentScoreText = GameObject.Find("currentScoreText").GetComponent<Text>();
-        bestScoreText = GameObject.Find("bestScoreText").GetComponent<Text>();
-
+        setScoreTexts();
+    }
+    
+    public static void increaseScore(int amount = 1)
+    {
+        score += amount;
         currentScoreText.text = currentScoreString + score.ToString();
-        bestScoreText.text = bestScoreString + bestScore.ToString();
     }
 
-    public static void increaseScore()
+    public static int getScore()
     {
-        score += 1;
-        currentScoreText.text = currentScoreString + score.ToString();
+        return score;
     }
 
     public static void saveBestScore()
@@ -37,7 +38,8 @@ public class Score : MonoBehaviour
         if(score > bestScore)
         {
             PlayerPrefs.SetInt("bestScore", score);
-            bestScoreText.text = bestScoreString + score.ToString();
+            bestScore = score;
+            setScoreTexts();
         }
     }
 
@@ -45,18 +47,24 @@ public class Score : MonoBehaviour
     {
         saveBestScore();
         score = 0;
-        currentScoreText.text = currentScoreString + score.ToString();
+        setScoreTexts();
     }
 
     public static void changeLanguage(string lang)
     {
         currentScoreString = (lang == "en"? "Score: ": "Skor: ");
         bestScoreString = (lang == "en"? "Best Score: ": "Rekor: ");
+    }
 
-        if(GameObject.Find("Canvas").GetComponent<Score>().enabled)
+    public static void setScoreTexts()
+    {
+        if(!currentScoreText ||!bestScoreText)
         {
-            currentScoreText.text = currentScoreString + score.ToString();
-            bestScoreText.text = bestScoreString + bestScore.ToString();
+            currentScoreText = GameObject.Find("currentScoreText").GetComponent<Text>();
+            bestScoreText = GameObject.Find("bestScoreText").GetComponent<Text>();
         }
+
+        currentScoreText.text = currentScoreString + score.ToString();
+        bestScoreText.text = bestScoreString + bestScore.ToString();
     }
 }

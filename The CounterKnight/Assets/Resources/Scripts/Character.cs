@@ -3,20 +3,24 @@ using UnityEngine;
 
 public class Character : Person
 {
-    private static Animator animator;
-    private static AudioSource aud;
     public static Character instance;
 
+    private static Animator animator;
+    private static AudioSource aud;
+    
+    private bool animatorActivity = true;
+    
     void Start()
     {
         instance = this;
+
         animator = GetComponent<Animator>();
         aud = GetComponent<AudioSource>();
     }
 
-    public void reduceCharHp()
+    public void reduceCharHp(int damage = 1)
     {
-        reduceHp();
+        reduceHp(damage);
         HpStatus.setHpStatus(this);
 
         if(getHp() != 0 && UIHandler.soundOn)
@@ -53,13 +57,12 @@ public class Character : Person
        subAnimator.Rebind();
    }
 
-    private bool animatorActivity = true;
     public void setAnimatorActivity()
     {
         animatorActivity = !animatorActivity;
         animator.enabled = animatorActivity;
     }
-    
+
     // Animator Parameter Functions
     public static void setLeftHold(bool isLeftHold)
     {
@@ -71,7 +74,7 @@ public class Character : Person
        animator.SetTrigger("leftBlock");
     }  
 
-    public static void triggerRighttBlock()
+    public static void triggerRightBlock()
     {
        animator.SetTrigger("rightBlock");
     }

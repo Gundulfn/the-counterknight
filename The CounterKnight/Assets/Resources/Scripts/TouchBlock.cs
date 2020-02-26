@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class TouchBlock : MonoBehaviour
 {
@@ -7,7 +9,7 @@ public class TouchBlock : MonoBehaviour
     
     void Update()
     {
-        if(Input.touchCount > 0)
+        if(Input.touchCount > 0 && !IsPointerOverUIObject())
         {
             Touch touch = Input.GetTouch(0);
             Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
@@ -29,5 +31,16 @@ public class TouchBlock : MonoBehaviour
         leftBlock.SetActive(state1);
         rightBlock.SetActive(state2);
         Character.setLeftHold(state1);
+    }
+
+    private bool IsPointerOverUIObject() 
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        
+        return results.Count > 0;
     }
 }

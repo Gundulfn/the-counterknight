@@ -18,6 +18,8 @@ public class ActiveSkills : MonoBehaviour
         if(whitePanel.color.a == 0)
         {
             DestroyClass.destroyObjectsByTag("Enemy");
+            Score.increaseScore(DestroyClass.getObjectsCount());
+            
             DestroyClass.destroyObjectsByTag("Projectile");
             whitePanel.GetComponent<AudioSource>().Play();
         }

@@ -11,8 +11,11 @@ public class Skill : MonoBehaviour
     private Animation skillAnim;
 
     private const float STACK_LIMIT = 10;
-    
     private float stack = 0;
+
+    private const int THUNDERSTRIKE_DAMAGE = 4;
+    private int skillDamage;
+
     private string skillName;
     private const string ANIM_CLIP_PATH = "Animations/Skills/";
 
@@ -20,6 +23,7 @@ public class Skill : MonoBehaviour
     {
         instance = this;
         skillName = PlayerPrefs.GetString("SkillName", "ThunderStrike");
+        skillDamage = THUNDERSTRIKE_DAMAGE;
 
         skillAnim = GetComponent<Animation>();
         skillButton = skillImg.transform.GetChild(0).GetComponent<Button>();
@@ -39,6 +43,11 @@ public class Skill : MonoBehaviour
 
     public void increaseStack()
     {
+        if(stack == STACK_LIMIT - 1)
+        {
+            GetComponent<AudioSource>().Play();
+        }
+
         if (stack < STACK_LIMIT) 
         {
             stack += 1;
@@ -61,6 +70,8 @@ public class Skill : MonoBehaviour
     {
         skillAnim.clip = (AnimationClip)Resources.Load(ANIM_CLIP_PATH + skillName);
         skillAnim.Play();
+        
+        Boss.reduceBossHpWithSkill(skillDamage);
 
         resetStack();
     }

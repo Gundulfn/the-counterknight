@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Feet : MonoBehaviour
-{
+{   
+    public static Feet instance;
     private static AudioSource aud;
-
+    
     void Start()
     {
+        instance = this;
         aud = GetComponent<AudioSource>();
     }
 
@@ -17,5 +17,16 @@ public class Feet : MonoBehaviour
         {
             aud.Play();
         }
+    }
+     
+    public void stopAnimation()
+    {
+        GetComponent<Animator>().Rebind();
+        GetComponent<Animator>().enabled = false;
+    }
+
+    public void startAnimation()
+    {
+        GetComponent<Animator>().enabled = true;
     }
 }

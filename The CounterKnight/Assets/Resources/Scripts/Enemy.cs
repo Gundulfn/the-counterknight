@@ -1,11 +1,19 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     public bool destroyEnemy = false;
-    private float enemySpeed = -2;
+    private static Color enemyColor;
+    private static Color ghostColor = new Color(45, 0, 255);
+
+    private const float INCREASE_AMOUNT = -0.25f;
+    private const float INCREASE_LIMIT = -2.75f;
+    private const float DEFAULT_SPEED = -2;
+    private static float enemySpeed = DEFAULT_SPEED;
+
+    private const float DEFAULT_SHOOT_DELAY = 2;
+    private static float shootDelay = DEFAULT_SHOOT_DELAY;
     
     private Rigidbody2D rb;
     private BoxCollider2D boxCol;
@@ -13,10 +21,14 @@ public class Enemy : MonoBehaviour
     private GameObject arrowPrefab;
     private Animator animator;
     private AudioSource aud; // NOTE: Default audioClip of "aud" is "EnemyAttack" 
-    private float shootDelay = 2;
 
     void Start()
     {
+        if(enemyColor == ghostColor)
+        {
+            GetComponent<SpriteRenderer>().color = ghostColor;
+        }
+
         boxCol = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         arrowPrefab = (GameObject)Resources.Load("Prefabs/Arrow");
@@ -67,6 +79,7 @@ public class Enemy : MonoBehaviour
         if(col.gameObject.GetComponent<Lighting>())
         {
             animator.SetBool("isDead", true);
+            GetComponent<SpriteRenderer>().color = Color.white;
             Destroy(boxCol);            
         }    
     }
@@ -81,17 +94,41 @@ public class Enemy : MonoBehaviour
         AnimationClip attackClip = (AnimationClip)Resources.Load("Animations/DarkElf/DarkElfAttack");
         yield return new WaitForSeconds( attackClip.length - 0.2f ); // -0.2f for shoot delay
 
-        GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
-        arrow.GetComponent<Arrow>().setArcherObj(gameObject);
-        
-        if(UIHandler.soundOn)
+        if(!animator.GetBool("isDead"))
         {
-            aud.Play();
+            GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            arrow.GetComponent<Arrow>().setArcherObj(gameObject);
+            
+            if(UIHandler.soundOn)
+            {
+                aud.Play();
+            }
         }
     }
 
     void OnBecameInvisible()
     {
         Destroy(gameObject);
+    }
+    
+    public static void resetEnemy()
+    {
+        enemySpeed = DEFAULT_SPEED;
+        shootDelay = DEFAULT_SHOOT_DELAY;
+        enemyColor = new Color(0, 0, 0);
+    }
+
+    public static void buffEnemy()
+    {
+        if(enemySpeed > INCREASE_LIMIT)
+        {
+            enemySpeed += INCREASE_AMOUNT;
+            shootDelay += INCREASE_AMOUNT;
+        }        
+    }
+
+    public static void setGhostColor()
+    {
+        enemyColor = ghostColor;
     }
 }

@@ -6,6 +6,7 @@ public class LanguageOptions : MonoBehaviour
     public Text[] textArray;
     private TextAsset textFile;
     private string[] textElements;
+    private static string lang;
 
     void Awake()
     {
@@ -13,12 +14,14 @@ public class LanguageOptions : MonoBehaviour
 
         textElements = textFile.ToString().Split(';');
 
-        string lang = PlayerPrefs.GetString("Language", "en");
-        changeLanguage(lang);
+        lang = PlayerPrefs.GetString("Language", "en");
+        changeLanguage();
     }
 
-    public void changeLanguage(string lang)
+    public void changeLanguage()
     {        
+        lang = PlayerPrefs.GetString("Language", "en");
+
         if(lang == "en")
         {
             for(int i = 0; i < textArray.Length; i++)
@@ -33,7 +36,7 @@ public class LanguageOptions : MonoBehaviour
                 textArray[i].text = textElements[ 2 * i + 1 ];
             }
         }
-
+        
         Score.changeLanguage(lang);
     }
 }

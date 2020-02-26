@@ -1,11 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Person : MonoBehaviour
 {
-    private const int DEFAULT_HP = 4;
-    private int hp = DEFAULT_HP;
+    private const int CHAR_HP = 4;
+    private const int BOSS_DARKELF_HP = 20;
+    private int defaultHp;
+    private int hp;
+
+    void Awake()
+    {
+        if(GetComponent<Boss>())
+        {
+            hp = BOSS_DARKELF_HP;
+            defaultHp = BOSS_DARKELF_HP;
+        }
+        else
+        {
+            hp = CHAR_HP;
+            defaultHp = CHAR_HP;
+        }
+    }
 
     public int getHp()
     {
@@ -16,18 +30,20 @@ public class Person : MonoBehaviour
     {
         if(key == 132426233)
         {
-            hp = DEFAULT_HP;
+            hp = defaultHp;
         }
     }
 
-    protected void reduceHp()
+    protected void reduceHp(int damage = 1)
     {
-        hp--;
-
-        // Check if hp is equal to or lower than zero
-        if(hp <= 0)
+        if(hp - damage <= 0)
         {
+            hp = 0;
             Die();
+        }
+        else
+        {
+            hp -= damage;
         }
     }
 
